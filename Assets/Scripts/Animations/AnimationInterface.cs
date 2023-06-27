@@ -6,6 +6,7 @@ public class AnimationInterface : MonoBehaviour
 {
     [Header("Bool Names")]
     [SerializeField] private string isSus;
+    [SerializeField] private string isWalking;
 
     [Header("Trigger Names")]
     [SerializeField] private string sitDown;
@@ -13,4 +14,9 @@ public class AnimationInterface : MonoBehaviour
 
     [Header("Cache")]
     [SerializeField] private Animator animator;
+
+    public void SetIsWalking(bool state)
+    {
+        animator.SetBool(isWalking, state);
+    }
 }
