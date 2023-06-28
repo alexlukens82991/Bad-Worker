@@ -1706,6 +1706,8 @@ GameObject:
   - component: {fileID: 6261026404902567185}
   - component: {fileID: 6261026404902567187}
   - component: {fileID: 6261026404902567196}
+  - component: {fileID: 2702884081055665601}
+  - component: {fileID: 2465971864568007681}
   m_Layer: 0
   m_Name: OfficeWorker_Bob
   m_TagString: Untagged
@@ -1782,6 +1784,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navAgent: {fileID: 6261026404902567185}
   animationInterface: {fileID: 6261026404902567187}
+--- !u!114 &2702884081055665601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261026404902567184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb009afce064234bb8105da79a560fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navAgent: {fileID: 0}
+  thisNpc: {fileID: 0}
+--- !u!114 &2465971864568007681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261026404902567184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ab4a4b6e0da27439555fc70031b69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
 --- !u!1 &6261026404931270740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,7 +2125,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6261026405356817791}
-  m_LocalRotation: {x: 0.0038051093, y: 0.00014270362, z: -0.07625063, w: 0.9970814}
+  m_LocalRotation: {x: 0.0038051095, y: 0.00014270362, z: -0.076250635, w: 0.9970814}
   m_LocalPosition: {x: -3.0594114e-11, y: 0.2740468, z: -1.5165656e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

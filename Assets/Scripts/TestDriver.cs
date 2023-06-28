@@ -5,24 +5,32 @@ using UnityEngine.AI;
 
 public class TestDriver : MonoBehaviour
 {
-    public NavMeshAgent navAgent;
-    public Camera cam;
+    //public NavMeshAgent navAgent;
+    //public Camera cam;
 
-    private void Update()
+    //private void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+    //        if (Physics.Raycast(ray, out RaycastHit hit))
+    //        {
+    //            MakeMove(hit.point);
+    //        }
+    //    }
+    //}
+
+    //private void MakeMove(Vector3 newPosition)
+    //{
+    //    navAgent.SetDestination(newPosition);
+    //}
+
+    public NpcController TestNpcController;
+    public WaterCooler WaterCooler;
+
+    private void Start()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                MakeMove(hit.point);
-            }
-        }
-    }
-
-    private void MakeMove(Vector3 newPosition)
-    {
-        navAgent.SetDestination(newPosition);
+        TestNpcController.FindAndInteract(WaterCooler);
     }
 }
