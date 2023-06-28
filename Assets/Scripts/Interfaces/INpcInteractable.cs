@@ -6,6 +6,6 @@ public interface INpcInteractable
 {
     public string GetID();
     public Vector3 GetLocation();
-    public void Interact(NPC interactingNpc);
+    public IEnumerator Interact(NPC interactingNpc);
 
 }

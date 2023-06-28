@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NpcController : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent navAgent;
+    public NavMeshAgent NavAgent;
     [SerializeField] private NPC thisNpc;
 
     public void FindAndInteract(INpcInteractable interactObj)
@@ -15,14 +15,14 @@ public class NpcController : MonoBehaviour
 
     IEnumerator InteractWhenReady(INpcInteractable interactObj)
     {
-        navAgent.SetDestination(interactObj.GetLocation());
+        NavAgent.SetDestination(interactObj.GetLocation());
 
-        yield return new WaitUntil(() => navAgent.hasPath);
+        yield return new WaitUntil(() => NavAgent.hasPath);
 
-        print("remaining distance: " + navAgent.remainingDistance);
+        yield return new WaitUntil(() => NavAgent.remainingDistance < 1);
 
-        yield return new WaitUntil(() => navAgent.remainingDistance < 1);
+        yield return StartCoroutine(interactObj.Interact(thisNpc));
 
-        interactObj.Interact(thisNpc);
+        thisNpc.OnInteractComplete();
     }    
 }

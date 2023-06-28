@@ -6,17 +6,29 @@ using Random = UnityEngine.Random;
 
 public class Vitals : MonoBehaviour, ICanBeInitialized
 {
-    [SerializeField]private VitalInfo[] vitalsList;
+    public VitalInfo Hydration;
+    public VitalInfo Bladder;
+    public VitalInfo Mood;
+    public VitalInfo Paranoia;
+
+
+    private VitalInfo[] vitalsList;
 
     [Header("Settings")]
     [SerializeField] private float bladderUpdateFreq;
     [SerializeField] private float bladderMaxAdjustment;
 
+    [Header("Cache")]
+    [SerializeField] private Animator StateMachine;
+
     public void Initialize()
     {
+        vitalsList = new VitalInfo[] { Hydration, Bladder , Mood, Paranoia};
+
+        StartCoroutine(UpdateVitalsRoutine());
         StartCoroutine(BladderRoutine());
 
-        UpdateUI();
+        UpdateVitals();
     }
 
     public void AddToVital(VitalType vitalType, float amt)
@@ -30,12 +42,24 @@ public class Vitals : MonoBehaviour, ICanBeInitialized
         else if (vitalToChange.Value < 0)
             vitalToChange.Value = 0;
 
-        UpdateUI();
+        UpdateVitals();
     }
 
-    private void UpdateUI()
+    private void UpdateVitals()
     {
+        StateMachine.SetFloat("Hydration", Hydration.Value);
+        StateMachine.SetFloat("Bladder", Bladder.Value);
+        StateMachine.SetFloat("Mood", Mood.Value);
+        StateMachine.SetFloat("Paranoia", Paranoia.Value);
+    }
 
+    IEnumerator UpdateVitalsRoutine()
+    {
+        do
+        {
+            UpdateVitals();
+            yield return new WaitForSeconds(1);
+        } while (true);
     }
 
     IEnumerator BladderRoutine()
@@ -52,7 +76,7 @@ public class Vitals : MonoBehaviour, ICanBeInitialized
                     randomAmt = hydrationInfo.Value;
 
                 hydrationInfo.Value -= randomAmt;
-                bladderInfo.Value += randomAmt;
+                bladderInfo.Value += randomAmt / 2;
             }
 
             yield return new WaitForSeconds(Random.Range(0f, bladderUpdateFreq));

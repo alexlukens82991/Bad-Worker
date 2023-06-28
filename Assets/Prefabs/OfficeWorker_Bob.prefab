@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3115077067217241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8384189147503091416}
+  - component: {fileID: 7116235617989029703}
+  - component: {fileID: 3184447694965197099}
+  m_Layer: 0
+  m_Name: StateMachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8384189147503091416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115077067217241}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6261026404902567186}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7116235617989029703
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115077067217241}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fa046630cab3b634a9230ea666eed39d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &3184447694965197099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115077067217241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3e9aa323e6aa1458bcf36992f55f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachineAnimator: {fileID: 7116235617989029703}
 --- !u!1 &6261026403695404452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,6 +1795,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6261026404063012235}
+  - {fileID: 8384189147503091416}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1797,7 +1864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb009afce064234bb8105da79a560fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navAgent: {fileID: 6261026404902567185}
+  NavAgent: {fileID: 6261026404902567185}
   thisNpc: {fileID: 2465971864568007681}
 --- !u!114 &2465971864568007681
 MonoBehaviour:
@@ -1812,6 +1879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: Bob
+  StateMachine: {fileID: 3184447694965197099}
   NpcController: {fileID: 2702884081055665601}
   Vitals: {fileID: 3459186539960335559}
 --- !u!114 &3459186539960335559
@@ -1826,17 +1894,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf14b93e61ab1f54394b451e8bcadaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitalsList:
-  - VitalType: 0
+  Hydration:
+    VitalType: 0
     Value: 0
-  - VitalType: 1
+  Bladder:
+    VitalType: 2
     Value: 0
-  - VitalType: 2
+  Mood:
+    VitalType: 3
     Value: 0
-  - VitalType: 3
-    Value: 50
+  Paranoia:
+    VitalType: 1
+    Value: 0
   bladderUpdateFreq: 10
-  bladderMaxAdjustment: 10
+  bladderMaxAdjustment: 25
+  StateMachine: {fileID: 7116235617989029703}
 --- !u!1 &6261026404931270740
 GameObject:
   m_ObjectHideFlags: 0
