@@ -6,6 +6,10 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
 {
     [SerializeField] private string ID;
 
+    [Header("Scripts")]
+    public NpcController NpcController;
+    public Vitals Vitals;
+
     public string GetID()
     {
         return ID;

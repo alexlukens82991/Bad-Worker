@@ -1708,6 +1708,7 @@ GameObject:
   - component: {fileID: 6261026404902567196}
   - component: {fileID: 2702884081055665601}
   - component: {fileID: 2465971864568007681}
+  - component: {fileID: 3459186539960335559}
   m_Layer: 0
   m_Name: OfficeWorker_Bob
   m_TagString: Untagged
@@ -1796,8 +1797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb009afce064234bb8105da79a560fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navAgent: {fileID: 0}
-  thisNpc: {fileID: 0}
+  navAgent: {fileID: 6261026404902567185}
+  thisNpc: {fileID: 2465971864568007681}
 --- !u!114 &2465971864568007681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1810,7 +1811,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ab4a4b6e0da27439555fc70031b69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 
+  ID: Bob
+  NpcController: {fileID: 2702884081055665601}
+  Vitals: {fileID: 3459186539960335559}
+--- !u!114 &3459186539960335559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261026404902567184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf14b93e61ab1f54394b451e8bcadaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vitalsList:
+  - VitalType: 0
+    Value: 0
+  - VitalType: 1
+    Value: 0
+  - VitalType: 2
+    Value: 0
+  - VitalType: 3
+    Value: 50
+  bladderUpdateFreq: 10
+  bladderMaxAdjustment: 10
 --- !u!1 &6261026404931270740
 GameObject:
   m_ObjectHideFlags: 0

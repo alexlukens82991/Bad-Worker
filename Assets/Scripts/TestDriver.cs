@@ -26,11 +26,11 @@ public class TestDriver : MonoBehaviour
     //    navAgent.SetDestination(newPosition);
     //}
 
-    public NpcController TestNpcController;
+    public NPC TestNpc;
     public WaterCooler WaterCooler;
 
     private void Start()
     {
-        TestNpcController.FindAndInteract(WaterCooler);
+        TestNpc.NpcController.FindAndInteract(WaterCooler);
     }
 }
