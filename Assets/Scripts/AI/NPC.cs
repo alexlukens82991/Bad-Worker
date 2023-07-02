@@ -15,6 +15,7 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
     public NpcController NpcController;
     public Vitals Vitals;
     public AnimationInterface AnimationInterface;
+    public StatusIconManager StatusIconManager;
 
     [Header("Cache")]
     [SerializeField] private WorkStation personalWorkStation;
@@ -34,6 +35,8 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
 
     public IEnumerator FindWaterRoutine()
     {
+        StatusIconManager.FlashIcon("WaterCooler");
+
         if (personalWorkStation.NpcIsAtWorkstation)
         {
             yield return StartCoroutine(personalWorkStation.GetUpFromWorkStation(this));
@@ -59,6 +62,8 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
 
     public IEnumerator FindToiletRoutine()
     {
+        StatusIconManager.FlashIcon("Bathroom");
+
         if (personalWorkStation.NpcIsAtWorkstation)
         {
             yield return StartCoroutine(personalWorkStation.GetUpFromWorkStation(this));

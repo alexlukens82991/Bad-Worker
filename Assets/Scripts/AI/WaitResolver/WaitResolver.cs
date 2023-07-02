@@ -65,15 +65,16 @@ public class WaitResolver : MonoSingleton<WaitResolver>
 
         if (npc1.TicketIsDone || npc2.TicketIsDone)
         {
-            if (npc1.TicketIsDone)
-                alpha = npc1;
-            else if (npc2.TicketIsDone)
-                alpha = npc2;
-            else
-            {
-                Debug.LogError("Something weird happened while settling conflict..");
-                alpha = npc1;
-            }
+            //if (npc1.TicketIsDone)
+            //    alpha = npc1;
+            //else if (npc2.TicketIsDone)
+            //    alpha = npc2;
+            //else
+            //{
+            //    Debug.LogError("Something weird happened while settling conflict..");
+            //    alpha = npc1;
+            //}
+            return;
         }
         else
         {
@@ -83,6 +84,7 @@ public class WaitResolver : MonoSingleton<WaitResolver>
                 alpha = npc2;
         }
 
+        alpha.Requester.NpcController.GiveTemporaryPriorityBoost();
         CloseTicket(alpha);
     }
 

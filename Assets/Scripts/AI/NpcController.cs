@@ -109,7 +109,7 @@ public class NpcController : MonoBehaviour
         yield return new WaitUntil(() => NavAgent.hasPath);
 
         thisNpc.CurrentInteractStatus = InteractStatus.WaitingUntilInRange;
-        yield return new WaitUntil(() => NavAgent.remainingDistance < 1);
+        yield return new WaitUntil(() => NavAgent.remainingDistance < 1); // this needs to be replaced, race condition when navagent resets
 
         thisNpc.CurrentInteractStatus = InteractStatus.Interacting;
         yield return currentInteractRoutine = StartCoroutine(interactObj.Interact(thisNpc));
@@ -117,6 +117,21 @@ public class NpcController : MonoBehaviour
         thisNpc.OnInteractComplete();
         currentTargetInteractObj = null;
         thisNpc.CurrentInteractStatus = InteractStatus.Idle;
+    }
+
+    public void GiveTemporaryPriorityBoost()
+    {
+        StartCoroutine(IncreasedPriorityRoutine());
+    }
+
+    IEnumerator IncreasedPriorityRoutine()
+    {
+        int oldPriority = NavAgent.avoidancePriority;
+        NavAgent.avoidancePriority += 100;
+
+        yield return new WaitForSeconds(3);
+
+        NavAgent.avoidancePriority = oldPriority;
     }
 
     private void StopAllInteractRoutines()
