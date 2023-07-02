@@ -14,9 +14,20 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
 
     private WaterCooler lastVisitedCooler;
     private Toilet lastVisitedToilet;
+
     public void FindWater()
     {
-        WaterCooler targetCooler = WaterCoolerManager.Instance.GetClosestWaterCooler(this, lastVisitedCooler);
+        WaterCooler lastCooler;
+
+        if (StateMachine.GetHasTask())
+        {
+            lastCooler = null;
+        }
+        else
+        {
+            lastCooler = lastVisitedCooler;
+        }    
+        WaterCooler targetCooler = WaterCoolerManager.Instance.GetClosestWaterCooler(this, lastCooler);
 
         NpcController.FindAndInteract(targetCooler);
 
@@ -30,6 +41,31 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
         NpcController.FindAndInteract(target);
 
         lastVisitedToilet = target;
+    }
+
+    public void SetDesintation(Vector3 target)
+    {
+        NpcController.SetDestination(target);
+    }
+
+    public void SetRoamRoutineActive(bool active)
+    {
+        NpcController.SetRoamRoutineActive(active);
+    }
+
+    public void Wait()
+    {
+        NpcController.Wait();
+    }
+
+    public void OnEndWait()
+    {
+        NpcController.OnEndWait();
+    }
+
+    public void SetWaitState(bool state)
+    {
+        StateMachine.SetWaitState(state);
     }
 
     public float GetDistanceTo(Vector3 target)

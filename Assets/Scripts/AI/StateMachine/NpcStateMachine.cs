@@ -8,6 +8,27 @@ public class NpcStateMachine : MonoBehaviour
 
     public void OnInteractComplete()
     {
-        stateMachineAnimator.SetBool("IsIdle", true);
+        SetIdle(true);
+        SetHasTask(false);
+    }
+
+    public void SetIdle(bool state)
+    {
+        stateMachineAnimator.SetBool("IsIdle", state);
+    }
+
+    public void SetWaitState(bool state)
+    {
+        stateMachineAnimator.SetBool("IsWaiting", state);
+    }
+
+    public void SetHasTask(bool state)
+    {
+        stateMachineAnimator.SetBool("HasTask", state);
+    }
+
+    public bool GetHasTask()
+    {
+        return stateMachineAnimator.GetBool("HasTask");
     }
 }
