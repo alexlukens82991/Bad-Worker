@@ -12,7 +12,7 @@ public class IdleState : StateMachineBehaviour
             thisNpc = animator.GetComponentInParent<NPC>();
 
         if (!animator.GetBool("HasTask"))
-            thisNpc.SetRoamRoutineActive(true);
+            thisNpc.GoToWorkStation();
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

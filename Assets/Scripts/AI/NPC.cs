@@ -7,16 +7,38 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
 {
     [SerializeField] private string ID;
 
+    [Header("Status")]
+    public InteractStatus CurrentInteractStatus;
+
     [Header("Scripts")]
     public NpcStateMachine StateMachine;
     public NpcController NpcController;
     public Vitals Vitals;
+    public AnimationInterface AnimationInterface;
+
+    [Header("Cache")]
+    [SerializeField] private WorkStation personalWorkStation;
 
     private WaterCooler lastVisitedCooler;
     private Toilet lastVisitedToilet;
 
     public void FindWater()
     {
+        StartCoroutine(FindWaterRoutine());
+    }
+
+    public void FindToilet()
+    {
+        StartCoroutine(FindToiletRoutine());
+    }
+
+    public IEnumerator FindWaterRoutine()
+    {
+        if (personalWorkStation.NpcIsAtWorkstation)
+        {
+            yield return StartCoroutine(personalWorkStation.GetUpFromWorkStation(this));
+        }
+
         WaterCooler lastCooler;
 
         if (StateMachine.GetHasTask())
@@ -27,6 +49,7 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
         {
             lastCooler = lastVisitedCooler;
         }    
+
         WaterCooler targetCooler = WaterCoolerManager.Instance.GetClosestWaterCooler(this, lastCooler);
 
         NpcController.FindAndInteract(targetCooler);
@@ -34,13 +57,28 @@ public class NPC : MonoBehaviour, INonPlayerCharacter
         lastVisitedCooler = targetCooler;
     }
 
-    public void FindToilet()
+    public IEnumerator FindToiletRoutine()
     {
+        if (personalWorkStation.NpcIsAtWorkstation)
+        {
+            yield return StartCoroutine(personalWorkStation.GetUpFromWorkStation(this));
+        }
+
         Toilet target = ToiletManager.Instance.GetClosest(this, lastVisitedToilet);
 
         NpcController.FindAndInteract(target);
 
         lastVisitedToilet = target;
+    }
+
+    public void GoToWorkStation()
+    {
+        NpcController.FindAndInteract(personalWorkStation);
+    }
+
+    public bool GetIsAtWorkStation()
+    {
+        return personalWorkStation.NpcIsAtWorkstation;
     }
 
     public void SetDesintation(Vector3 target)

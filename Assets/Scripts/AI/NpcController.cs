@@ -89,19 +89,35 @@ public class NpcController : MonoBehaviour
         currentFindRoutine = StartCoroutine(InteractWhenReady(interactObj));
     }
 
+    public void SetNavAgentActive(bool state)
+    {
+        if (!state)
+        {
+            NavAgent.ResetPath();
+        }
+
+        NavAgent.enabled = state;
+    }
+
     IEnumerator InteractWhenReady(INpcInteractable interactObj)
     {
+        thisNpc.CurrentInteractStatus = InteractStatus.FindingPath;
+        yield return new WaitForSeconds(2);
+
         NavAgent.SetDestination(interactObj.GetLocation());
 
         yield return new WaitUntil(() => NavAgent.hasPath);
 
+        thisNpc.CurrentInteractStatus = InteractStatus.WaitingUntilInRange;
         yield return new WaitUntil(() => NavAgent.remainingDistance < 1);
 
+        thisNpc.CurrentInteractStatus = InteractStatus.Interacting;
         yield return currentInteractRoutine = StartCoroutine(interactObj.Interact(thisNpc));
 
         thisNpc.OnInteractComplete();
         currentTargetInteractObj = null;
-    }    
+        thisNpc.CurrentInteractStatus = InteractStatus.Idle;
+    }
 
     private void StopAllInteractRoutines()
     {
@@ -111,4 +127,12 @@ public class NpcController : MonoBehaviour
         if (currentInteractRoutine != null)
             StopCoroutine(currentInteractRoutine);
     }
+}
+
+public enum InteractStatus
+{
+    Idle,
+    FindingPath,
+    WaitingUntilInRange,
+    Interacting,
 }

@@ -16,6 +16,12 @@ public class HumanAnimation : MonoBehaviour
 
     private void WalkCheck()
     {
+        if (!navAgent.enabled)
+        {
+            animationInterface.SetIsWalking(false);
+            return;
+        }
+
         animationInterface.SetIsWalking(navAgent.remainingDistance > navAgent.stoppingDistance);
     }
 

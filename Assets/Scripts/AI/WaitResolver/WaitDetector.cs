@@ -18,6 +18,9 @@ public class WaitDetector : MonoBehaviour
             if (foundNpc == null)
                 Debug.LogError("returned null NPC even though Obj tagged as NPC");
 
+            if (foundNpc.GetIsAtWorkStation())
+                return;
+
             if (!isWaitingOn.Contains(foundNpc))
             {
                 AddIsWaitingOn(foundNpc);

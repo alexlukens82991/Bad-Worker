@@ -1969,6 +1969,8 @@ MonoBehaviour:
   StateMachine: {fileID: 3184447694965197099}
   NpcController: {fileID: 2702884081055665601}
   Vitals: {fileID: 3459186539960335559}
+  AnimationInterface: {fileID: 6261026404902567187}
+  personalWorkStation: {fileID: 0}
 --- !u!114 &3459186539960335559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1983,18 +1985,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hydration:
     VitalType: 0
-    Value: 0
+    Value: 50
   Bladder:
     VitalType: 2
     Value: 0
   Mood:
     VitalType: 3
-    Value: 0
+    Value: 50
   Paranoia:
     VitalType: 1
     Value: 0
-  bladderUpdateFreq: 10
-  bladderMaxAdjustment: 25
+  bladderUpdateFreq: 20
+  bladderMaxAdjustment: 15
   StateMachine: {fileID: 7116235617989029703}
 --- !u!1 &6261026404931270740
 GameObject:

@@ -18,7 +18,7 @@ public class WaterCooler : MonoBehaviour, INpcInteractable
 
     public IEnumerator Interact(NPC interactingNpc)
     {
-        print("Getting water!");
+        print("Interacting with water!");
         interactingNpc.Vitals.AddToVital(VitalType.Hydration, amountPerDrink);
 
         yield return new WaitForSeconds(Random.Range(2, 10f));

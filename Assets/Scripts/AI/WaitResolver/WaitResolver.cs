@@ -55,17 +55,33 @@ public class WaitResolver : MonoSingleton<WaitResolver>
                 }
             }
         }
+
     }
 
     private void SettleConflict(WaitTicket npc1, WaitTicket npc2)
     {
+        Debug.LogWarning("Canadian Stand Off detected! Resolving...");
         WaitTicket alpha;
 
-        if (Random.value > 0.5f)
-            alpha = npc1;
+        if (npc1.TicketIsDone || npc2.TicketIsDone)
+        {
+            if (npc1.TicketIsDone)
+                alpha = npc1;
+            else if (npc2.TicketIsDone)
+                alpha = npc2;
+            else
+            {
+                Debug.LogError("Something weird happened while settling conflict..");
+                alpha = npc1;
+            }
+        }
         else
-            alpha = npc2;
-
+        {
+            if (Random.value > 0.5f)
+                alpha = npc1;
+            else
+                alpha = npc2;
+        }
 
         CloseTicket(alpha);
     }
@@ -92,7 +108,23 @@ public class WaitResolver : MonoSingleton<WaitResolver>
     private void CloseTicket(WaitTicket waitTicket)
     {
         waitTicket.Requester.SetWaitState(false);
-        WaitTickets.Remove(waitTicket);
+        waitTicket.TicketIsDone = true;
+        CleanUpTickets();
+    }
+
+    private void CleanUpTickets()
+    {
+        List<WaitTicket> cleanedList = new();
+
+        foreach (WaitTicket ticket in WaitTickets)
+        {
+            if (!ticket.TicketIsDone)
+            {
+                cleanedList.Add(ticket);
+            }
+        }
+
+        WaitTickets = cleanedList;
     }
 
     public void UpdateIsWaitingOn(NPC requestingNpc, List<NPC> isWaitingOn)
@@ -101,7 +133,6 @@ public class WaitResolver : MonoSingleton<WaitResolver>
 
         if (foundTicket == null)
         {
-            Debug.LogError("Could not find wait ticket, creating new one for : " + requestingNpc.name);
             RequestWaitTicket(requestingNpc, isWaitingOn);
             return;
         }
@@ -133,7 +164,7 @@ public class WaitTicket
 {
     public NPC Requester;
     public List<NPC> IsWaitingOn;
-
+    public bool TicketIsDone;
     public WaitTicket(NPC requestingNpc, List<NPC> isWaitingOn)
     {
         Requester = requestingNpc;
